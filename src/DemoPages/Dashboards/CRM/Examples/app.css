@@ -1,0 +1,83 @@
+::-webkit-scrollbar{
+    display:none;
+}
+
+.deni::-webkit-scrollbar{
+    width: 2%;
+    display: inline
+}
+
+.deni::-webkit-scrollbar-track {
+  background: #f1f1f1; 
+}
+ 
+/* Handle */
+.deni::-webkit-scrollbar-thumb {
+  background: #888; 
+}
+
+/* Handle on hover */
+.deni::-webkit-scrollbar-thumb:hover {
+  background: #555; 
+}
+
+
+.deni{
+    overflow: auto; 
+    height: 258px;
+    background-color:white; 
+    border-bottom-left-radius:5px;
+    border-bottom-right-radius:5px;  
+    border:1px solid;
+}
+
+.form{
+    background-color: white;
+    bottom:1px; 
+    height: 48px; 
+    border:  1px solid;
+    border-top-left-radius: 10px; 
+    border-top-right-radius: 10px;
+    border-bottom-left-radius: 0px;
+    border-bottom-right-radius: 0px;
+
+}
+
+.form:focus{
+    box-shadow: unset;
+}
+
+.col-input{
+    border-top-left-radius:10px;  
+    border-top-right-radius:10px;
+    left:-15px;
+}
+
+.form-input{
+     width:450px;
+     height:42px; 
+      border:0px;
+      border-top-left-radius:10px;
+      border-top-right-radius:10px;
+      border-bottom-left-radius:0px;
+      border-bottom-right-radius:0px;
+}
+
+.form-input:focus{
+    box-shadow: unset;
+}
+
+
+.list{
+    display:flex;
+    flex-direction:row; 
+    padding-top:10px;
+    padding-bottom:10px; 
+}
+
+@media (max-width: 360px){
+.form-input{
+     width:162px;
+     
+}
+}

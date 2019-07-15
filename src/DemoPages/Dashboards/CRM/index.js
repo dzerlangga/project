@@ -32,7 +32,7 @@ export default class CRMDashboard extends Component {
                         icon="lnr-apartment icon-gradient bg-mean-fruit"
                     />
                     <Tabs
-                        defaultActiveKey="1"
+                        defaultActiveKey="4"
                         renderTabBar={() => <ScrollableInkTabBar/>}
                         renderTabContent={() => <TabContent/>}
                     >

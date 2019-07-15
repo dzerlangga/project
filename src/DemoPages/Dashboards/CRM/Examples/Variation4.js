@@ -23,6 +23,7 @@ import {
 
 } from 'recharts';
 import PerfectScrollbar from 'react-perfect-scrollbar';
+//import { array } from 'prop-types';
 
 
 
@@ -39,21 +40,24 @@ const Designation = [
 
 
 const relasi = [
-    { name: 'Android', id: '7' },
-    { name: 'WEB', id: '7' },
-    { name: 'Facebook', id: '9' },
-    { name: 'Instragram', id: '9' },
-    { name: 'WhatApp', id: '2' },
-    { name: 'Komputer', id: '2' },
-    { name: 'Mouse', id: '3' },
-    { name: 'Keyboard', id: '4' },
+    { name: 'Android', id: '7',id_t:'20' },
+    { name: 'WEB', id: '7' , id_t:'21' },
+    { name: 'Facebook', id: '9', id_t: '22' },
+    { name: 'Instragram', id: '9', id_t: '23'},
+    { name: 'WhatApp', id: '2' , id_t:'24'},
+    { name: 'Komputer', id: '2', id_t: '25'},
+    { name: 'Mouse', id: '3', id_t: '26'},
+    { name: 'Keyboard', id: '4' , id_t:'27'},
 ]
+
+
 
 
 
 
 class MinimalDashboard4 extends Component {
 
+    
     constructor(props) {
         super(props);
 
@@ -68,8 +72,10 @@ class MinimalDashboard4 extends Component {
             data: relasi,
             d: '',
             b: '',
-            checked: false
-
+            checked: false,
+            fil: [],
+            filtered:[]
+            
         }
         this.handleChange = this.handleChange.bind(this);
        
@@ -77,6 +83,8 @@ class MinimalDashboard4 extends Component {
         // this.handleCheckChieldElement = this.handleCheckChieldElement.bind(this);
 
     }
+
+    
 
     togglePop1() {
         this.setState({
@@ -109,18 +117,37 @@ class MinimalDashboard4 extends Component {
          })
     }
 
-    handle = (e) => {
+
+    handle = (e,value) => {
         let design = this.state.design;
         let allChecked = this.state.checked;
         if (e.target.value === "check") {
             design.forEach(item => {
                 item.isChecked = e.target.checked;
                 allChecked = e.target.checked;
+               if (item.isChecked === true) {
+                   this.setState({
+                    fil: this.state.fil.concat(this.state.design.map(el => (el.id))),    
+                })
+               }else{
+                   this.setState({
+                       fil: this.state.fil.splice()
+                   })
+               }
             });
         }
         else {
             design.find(item => item.name === e.target.name).isChecked = e.target.checked;
-
+            if (design.find(item => item.name === e.target.name).isChecked === true) {
+                this.setState({
+                    fil: this.state.fil.concat(value)
+                })
+            }else{
+                this.setState({
+                    fil: this.state.fil.filter(item => item !== value)
+                })
+                
+            }
         }
         this.setState({ design: design, checked: allChecked });
     }
@@ -128,16 +155,29 @@ class MinimalDashboard4 extends Component {
 
 
     render() {
-        console.log(this.state.design)
+        console.log(this.state.fil)
         const select = "exampleCustomCheckbox";
         const { d, b } = this.state;
         const filterData = this.state.design ? this.state.design.filter(
             e => e.name.toLowerCase().indexOf(d.toLowerCase()) > -1
         ) : this.state.design;
 
-        const filterDesign = this.state.data ? this.state.data.filter(
-            el => el.id.toLowerCase().indexOf(b.toLowerCase()) > -1
-        ) : '';
+        let test = []
+        this.state.fil.map(el => (
+          test = [...test,this.state.data.filter(function (e) { 
+                return e.id === el
+             })]
+         ))
+
+         let c =[]  
+            test.map(lul => (
+                 // test = [...test,test.push([lul]) ]
+                 c = [...c.concat(lul)]
+             ))
+        
+        const filterDesign = c ? c.filter(
+            e => e.name.toLowerCase().indexOf(d.toLowerCase()) > -1) : '';
+       console.log(c)
 
         return (
             <Fragment>
@@ -181,7 +221,8 @@ class MinimalDashboard4 extends Component {
                                                             <option>Value 5</option>
                                                         </CustomInput>
                                                     </Col>
-                                                    <Col sm={3} style={{ paddingLeft: '10px', paddingTop: '8px' }}>
+                                                    
+                                                    <Col sm={3} className="new-claim">
                                                         <CustomInput type="checkbox" id="exampleCustomCheckbox12"
                                                             label="New Claim" />
                                                     </Col>
@@ -207,7 +248,7 @@ class MinimalDashboard4 extends Component {
                                                             <Input type="number" min="0" placeholder="0" style={{ textAlign: 'right' }} />
                                                         </InputGroup>
                                                     </Col>
-                                                    <Col sm={3} style={{ paddingLeft: '10px', paddingTop: '8px' }}>
+                                                    <Col sm={3} className="balance-total">
                                                         <CustomInput type="checkbox" id="exampleCustomCheckbox13"
                                                             label="Must Provide Proof" />
                                                     </Col>
@@ -249,8 +290,9 @@ class MinimalDashboard4 extends Component {
                                                     <Label for="Applied" sm={12} size="lg">5 <font style={{ paddingLeft: '20px' }}>Applied to</font></Label>
                                                    
                                                         
-
-                                                    <Col sm={6}>
+                                                <div className='flex'>
+                                                    <div style={{ flex:'6' }}>
+                                                    <Col>
                                                         <Card >
                                                             <ListGroupItem>
                                                                 <div className="widget-content p-0">
@@ -270,29 +312,25 @@ class MinimalDashboard4 extends Component {
                                                                 </div>
                                                             </ListGroupItem>
                                                             <ListGroupItem>
-
                                                                 <Input type="text" name="FulName" value={d} onChange={(e) => { this.setState({ d: e.target.value }) }} placeholder="Search..." />
-
                                                             </ListGroupItem>
-
                                                             <div className="scroll-area-sm" style={{ height: '413%' }}>
                                                                 <PerfectScrollbar style={{ height: '413%' }}>
                                                                     {filterData.map(el => (
                                                                         <ListGroupItem>
                                                                             <div>
-                                                                                <CustomInput key={el.id} onChange={this.handle} checked={el.isChecked} name={el.name} type="checkbox" id={select,el.id}
-                                       label={el.name}  />
-                                                    </div>
-
+                                                                                <CustomInput key={el.id} onChange={(e)=> this.handle(e,el.id)} checked={el.isChecked} name={el.name} type="checkbox" id={select,el.id} label={el.name}  />
+                                                                            </div>
                                                                         </ListGroupItem>
                                                                     ))}
                                                                 </PerfectScrollbar>
                                                             </div>
-
                                                         </Card>
                                                     </Col>
+                                                    </div>
+                                                    <div className='flex2'>
 
-                                                    <Col sm={6}>
+                                                    <Col>
                                                         <Card >
                                                             <ListGroupItem>
                                                                 <div className="widget-content p-0">
@@ -314,26 +352,26 @@ class MinimalDashboard4 extends Component {
                                                             </ListGroupItem>
                                                             <ListGroupItem>
 
-                                                                <Input type="text" name="FulName" placeholder="Search..." />
+                                                                        <Input type="text" name="FulName" value={b} onChange={(e) => { this.setState({ b: e.target.value }) }} placeholder="Search..." />
 
                                                             </ListGroupItem>
 
                                                             <div className="scroll-area-sm" style={{ height: '413%' }}>
                                                                 <PerfectScrollbar style={{ height: '413%' }}>
+                                                                    
                                                                     {filterDesign.map(el => (
                                                                         <ListGroupItem>
                                                                             <div>
-                                                                                <CustomInput onclick={() => { this.setState({ d: el.id }) }} type="checkbox" id={select,el.id}
-                                       label={el.name} />
-                                                    </div>
-
+                                                                                <CustomInput type="checkbox" id={select,el.id_t} label={el.name} checked />
+                                                                            </div>
                                                                         </ListGroupItem>
                                                                     ))}
                                                                 </PerfectScrollbar>
                                                             </div>
-
                                                         </Card>
                                                     </Col>    
+                                                        </div>
+                                                    </div>
 
                                                         
                                                     
@@ -365,4 +403,4 @@ class MinimalDashboard4 extends Component {
         
         
         
-export default MinimalDashboar
+export default MinimalDashboard4;

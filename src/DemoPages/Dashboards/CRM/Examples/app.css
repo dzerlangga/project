@@ -75,9 +75,48 @@
     padding-bottom:10px; 
 }
 
-@media (max-width: 360px){
+
+.flex{
+    display:flex; 
+    margin:auto;
+    width:95%;
+}
+
+.flex2{
+    flex: 6;
+}
+
+.new-claim{
+    padding-left: 10px; 
+    padding-top: 8px;
+}
+
+
+.balance-total{
+    padding-left: 10px;
+     padding-top: 8px;
+}
+
+@media  (max-width: 1280px){
 .form-input{
      width:162px;
      
 }
+
+.flex{
+    flex-direction: column;
+}
+
+.flex2{
+    margin-top: 20px;
+}
+
+.new-claim{
+    margin-left: 45px;
+}
+
+.balance-total{
+    margin-left: 45px;
+}
+
 }

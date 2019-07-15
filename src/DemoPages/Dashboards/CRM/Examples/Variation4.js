@@ -127,11 +127,14 @@ class MinimalDashboard4 extends Component {
                 allChecked = e.target.checked;
                if (item.isChecked === true) {
                    this.setState({
-                    fil: this.state.fil.concat(this.state.design.map(el => (el.id))),    
+                    fil: this.state.fil.concat(this.state.design.map(el => (el.id))),
+                    filtered:[]
                 })
                }else{
                    this.setState({
-                       fil: this.state.fil.splice()
+                       fil: this.state.fil.splice(),
+                       filtered:[]
+                       
                    })
                }
             });
@@ -140,11 +143,14 @@ class MinimalDashboard4 extends Component {
             design.find(item => item.name === e.target.name).isChecked = e.target.checked;
             if (design.find(item => item.name === e.target.name).isChecked === true) {
                 this.setState({
-                    fil: this.state.fil.concat(value)
+                    fil: this.state.fil.concat(value),
+                    filtered:[]
+                                    
                 })
             }else{
                 this.setState({
-                    fil: this.state.fil.filter(item => item !== value)
+                    fil: this.state.fil.filter(item => item !== value),
+                    filtered:[]
                 })
                 
             }
@@ -153,9 +159,8 @@ class MinimalDashboard4 extends Component {
     }
 
 
-
     render() {
-        console.log(this.state.fil)
+
         const select = "exampleCustomCheckbox";
         const { d, b } = this.state;
         const filterData = this.state.design ? this.state.design.filter(
@@ -169,15 +174,14 @@ class MinimalDashboard4 extends Component {
              })]
          ))
 
-         let c =[]  
             test.map(lul => (
-                 // test = [...test,test.push([lul]) ]
-                 c = [...c.concat(lul)]
+                 this.state.filtered = [...this.state.filtered.concat(lul)]
              ))
         
-        const filterDesign = c ? c.filter(
-            e => e.name.toLowerCase().indexOf(d.toLowerCase()) > -1) : '';
-       console.log(c)
+        const filterDesign = this.state.filtered ? this.state.filtered.filter(
+            e => e.name.toLowerCase().indexOf(d.toLowerCase()) > -1) : this.state.filtered;
+
+       console.log(this.state.filtered)
 
         return (
             <Fragment>
@@ -362,7 +366,7 @@ class MinimalDashboard4 extends Component {
                                                                     {filterDesign.map(el => (
                                                                         <ListGroupItem>
                                                                             <div>
-                                                                                <CustomInput type="checkbox" id={select,el.id_t} label={el.name} checked />
+                                                                                <CustomInput type="checkbox" id={select,el.id_t} label={el.name}  />
                                                                             </div>
                                                                         </ListGroupItem>
                                                                     ))}

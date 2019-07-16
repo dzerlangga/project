@@ -1,8 +1,5 @@
 import React, { Component, Fragment } from 'react';
-
-
 import ReactCSSTransitionGroup from 'react-addons-css-transition-group';
-
 import {
     Col,
     Button,
@@ -11,148 +8,93 @@ import {
     Card,
     CardBody, Input, CardFooter,
     FormGroup, Label, CustomInput, CardHeader, Form,
-    InputGroup, InputGroupText, InputGroupAddon,
-    ListGroup,
+    InputGroup, InputGroupAddon,
     ListGroupItem,
     ButtonGroup
 
 } from 'reactstrap';
-
 import {
     ResponsiveContainer,
-
 } from 'recharts';
 import PerfectScrollbar from 'react-perfect-scrollbar';
-//import { array } from 'prop-types';
-
 
 
 const Designation = [
-    { name: 'CEO', id: '7', isChecked: false },
-    { name: 'Teknikal Lead', id: '8', isChecked: false },
-    { name: 'Scrum Master', id: '9', isChecked: false },
-    { name: 'FronEnd Lead Programmer', id: '10', isChecked: false },
-    { name: 'BackEnd Programer', id: '2', isChecked: false },
-    { name: 'Intership', id: '1', isChecked: false },
-    { name: 'Android Programer', id: '3', isChecked: false },
-    { name: 'Technical Writter', id: '4', isChecked: false},
+    { name: 'CEO', id: 7, isChecked: false },
+    { name: 'Teknikal Lead', id: 8, isChecked: false },
+    { name: 'Scrum Master', id: 9, isChecked: false },
+    { name: 'FronEnd Lead Programmer', id: 10, isChecked: false },
+    { name: 'BackEnd Programer', id: 2, isChecked: false },
+    { name: 'Intership', id: 1, isChecked: false },
+    { name: 'Android Programer', id: 3, isChecked: false },
+    { name: 'Technical Writter', id: 4, isChecked: false},
 ]
 
 
 const relasi = [
-    { name: 'Android', id: '7',id_t:'20' },
-    { name: 'WEB', id: '7' , id_t:'21' },
-    { name: 'Facebook', id: '9', id_t: '22' },
-    { name: 'Instragram', id: '9', id_t: '23'},
-    { name: 'WhatApp', id: '2' , id_t:'24'},
-    { name: 'Komputer', id: '2', id_t: '25'},
-    { name: 'Mouse', id: '3', id_t: '26'},
-    { name: 'Keyboard', id: '4' , id_t:'27'},
+    { name: 'Android', id: [7],id_t:'20' },
+    { name: 'WEB', id: [7,8] , id_t:'21' },
+    { name: 'Facebook', id: [8,2] ,id_t: '22' },
+    { name: 'Visual Designer', id: [7,9], id_t: '23'},
+    { name: 'WhatApp', id: [1] , id_t:'24'},
+    { name: 'Komputer', id: [2], id_t: '25'},
+    { name: 'Mouse', id: [3], id_t: '26'},
+    { name: 'Keyboard', id: [4] , id_t:'27'},
 ]
-
-
-
 
 
 
 class MinimalDashboard4 extends Component {
 
-    
     constructor(props) {
         super(props);
-
-        this.toggle = this.toggle.bind(this);
-        this.togglePop1 = this.togglePop1.bind(this);
         this.state = {
-            popoverOpen1: false,
             activeTab: '2',
-            modal: false,
-            startDate: new Date(),
             design: Designation,
             data: relasi,
             d: '',
             b: '',
             checked: false,
             fil: [],
-            filtered:[]
-            
-        }
-        this.handleChange = this.handleChange.bind(this);
-       
-        this.handleAllChecked = this.handleAllChecked.bind(this);
-        // this.handleCheckChieldElement = this.handleCheckChieldElement.bind(this);
-
+            filtered:[]   
+        }  
     }
-
-    
-
-    togglePop1() {
-        this.setState({
-            popoverOpen1: !this.state.popoverOpen1
-        });
-    }
-
-    toggle(tab) {
-        if (this.state.activeTab !== tab) {
-            this.setState({
-                activeTab: tab
-            });
-        }
-    }
-
-    handleChange(date) {
-        this.setState({
-            startDate: date
-        });
-    }
-
-    list(value) {
-        console.log(value)
-    }
-
-
-    handleAllChecked(){
-        this.setState({ 
-            checked: !this.state.checked
-         })
-    }
-
 
     handle = (e,value) => {
         let design = this.state.design;
         let allChecked = this.state.checked;
         if (e.target.value === "check") {
+           
             design.forEach(item => {
                 item.isChecked = e.target.checked;
                 allChecked = e.target.checked;
+            
                if (item.isChecked === true) {
-                   this.setState({
-                    fil: this.state.fil.concat(this.state.design.map(el => (el.id))),
-                    filtered:[]
-                })
+
+                    this.setState({
+                    fil: this.state.fil.concat(...new Set(this.state.design.map(el => (el.id)))),
+                    filtered:this.state.data
+                       })
                }else{
                    this.setState({
                        fil: this.state.fil.splice(),
-                       filtered:[]
-                       
+                       filtered: this.state.data
                    })
                }
             });
-        }
-        else {
+            
+        }else{
             design.find(item => item.name === e.target.name).isChecked = e.target.checked;
             if (design.find(item => item.name === e.target.name).isChecked === true) {
                 this.setState({
-                    fil: this.state.fil.concat(value),
-                    filtered:[]
-                                    
+                    fil: this.state.fil.concat(value), 
+                    filtered:[]         
                 })
             }else{
                 this.setState({
                     fil: this.state.fil.filter(item => item !== value),
                     filtered:[]
                 })
-                
             }
         }
         this.setState({ design: design, checked: allChecked });
@@ -160,29 +102,24 @@ class MinimalDashboard4 extends Component {
 
 
     render() {
-
         const select = "exampleCustomCheckbox";
-        const { d, b } = this.state;
-        const filterData = this.state.design ? this.state.design.filter(
+        const { d, b , design , fil , data } = this.state;
+        const filterData = design ? design.filter(
             e => e.name.toLowerCase().indexOf(d.toLowerCase()) > -1
-        ) : this.state.design;
-
+        ) : design; 
+        console.log()
         let test = []
-        this.state.fil.map(el => (
-          test = [...test,this.state.data.filter(function (e) { 
-                return e.id === el
-             })]
-         ))
-
+        fil.map(el => (
+            test = [...test, data.filter(e => {
+                return fil.every(evt => e.id.includes(evt))
+            })]
+        ))
             test.map(lul => (
-                 this.state.filtered = [...this.state.filtered.concat(lul)]
+                 this.state.filtered = [...new Set(this.state.filtered.concat(lul))]
              ))
-        
         const filterDesign = this.state.filtered ? this.state.filtered.filter(
-            e => e.name.toLowerCase().indexOf(d.toLowerCase()) > -1) : this.state.filtered;
-
-       console.log(this.state.filtered)
-
+            e => e.name.toLowerCase().indexOf(b.toLowerCase()) > -1) : this.state.filtered;
+        
         return (
             <Fragment>
                 <ReactCSSTransitionGroup
@@ -193,10 +130,7 @@ class MinimalDashboard4 extends Component {
                     transitionEnter={false}
                     transitionLeave={false}>
                     <CardHeader className="card-header-tab">
-                        <div>
-                            Add New Claim Policy
-                            </div>
-
+                        <div>Add New Claim Policy</div>
                     </CardHeader>
                     <Card tabs="true" className="mb-3">
                         <TabContent activeTab={this.state.activeTab}>
@@ -295,7 +229,7 @@ class MinimalDashboard4 extends Component {
                                                    
                                                         
                                                 <div className='flex'>
-                                                    <div style={{ flex:'6' }}>
+                                                    <div className='flex1'>
                                                     <Col>
                                                         <Card >
                                                             <ListGroupItem>
@@ -307,7 +241,7 @@ class MinimalDashboard4 extends Component {
                                                                         </div>
                                                                         <div className="widget-content-right">
                                                                             <ButtonGroup size="sm">
-                                                                                <Button style={{ backgroundColor: '#295950' }} className="btn-wide fsize-1" size="lg">
+                                                                                        <Button style={{ backgroundColor: '#003D51' }} className="btn-wide fsize-1" size="lg">
                                                                                     Apply
                                                                                 </Button>
                                                                             </ButtonGroup>
@@ -318,8 +252,8 @@ class MinimalDashboard4 extends Component {
                                                             <ListGroupItem>
                                                                 <Input type="text" name="FulName" value={d} onChange={(e) => { this.setState({ d: e.target.value }) }} placeholder="Search..." />
                                                             </ListGroupItem>
-                                                            <div className="scroll-area-sm" style={{ height: '413%' }}>
-                                                                <PerfectScrollbar style={{ height: '413%' }}>
+                                                            <div className="scroll-area-sm" style={{ maxHeight:'100%', overflow:'auto'}}>
+                                                                <PerfectScrollbar>
                                                                     {filterData.map(el => (
                                                                         <ListGroupItem>
                                                                             <div>
@@ -332,8 +266,8 @@ class MinimalDashboard4 extends Component {
                                                         </Card>
                                                     </Col>
                                                     </div>
-                                                    <div className='flex2'>
 
+                                                    <div className='flex2'>
                                                     <Col>
                                                         <Card >
                                                             <ListGroupItem>
@@ -346,7 +280,7 @@ class MinimalDashboard4 extends Component {
 
                                                                         <div className="widget-content-right">
                                                                             <ButtonGroup size="sm">
-                                                                                <Button className="btn btn-danger fsize-1" size="lg">
+                                                                                        <Button style={{ backgroundColor: '#EF4D5E' }} className="btn-wide fsize-1" size="lg">
                                                                                     Remove
                                                                                 </Button>
                                                                             </ButtonGroup>
@@ -360,8 +294,8 @@ class MinimalDashboard4 extends Component {
 
                                                             </ListGroupItem>
 
-                                                            <div className="scroll-area-sm" style={{ height: '413%' }}>
-                                                                <PerfectScrollbar style={{ height: '413%' }}>
+                                                            <div className="scroll-area-sm" style={{ maxHeight:'100%',overflow:'auto' }}>
+                                                                <PerfectScrollbar>
                                                                     
                                                                     {filterDesign.map(el => (
                                                                         <ListGroupItem>
@@ -376,21 +310,16 @@ class MinimalDashboard4 extends Component {
                                                     </Col>    
                                                         </div>
                                                     </div>
-
-                                                        
-                                                    
                                                 </FormGroup>
-                                                
                                             </Form>
                                         </ResponsiveContainer>
                                     </div>
-
                                 </CardBody>
                                     <CardFooter className="d-block p-4 text-right">
                                         <Button style={{ right: '10px', backgroundColor: "#da222200", color: "black", borderColor: "#ff000000" }} className="fsize-1" size="lg">
                                             Cancel
                                     </Button>
-                                        <Button style={{ backgroundColor: '#295950' }} className="btn-wide fsize-1" size="lg">
+                                    <Button style={{ backgroundColor: '#003D51' }} className="btn-wide fsize-1" size="lg">
                                             Save
                                     </Button>
                                     </CardFooter>

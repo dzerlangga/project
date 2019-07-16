@@ -75,11 +75,14 @@
     padding-bottom:10px; 
 }
 
-
 .flex{
     display:flex; 
     margin:auto;
     width:95%;
+}
+
+.flex1{
+    flex: 6;
 }
 
 .flex2{
@@ -94,7 +97,7 @@
 
 .balance-total{
     padding-left: 10px;
-     padding-top: 8px;
+    padding-top: 8px;
 }
 
 @media  (max-width: 1280px){
@@ -105,6 +108,7 @@
 
 .flex{
     flex-direction: column;
+    margin-left: 40px;
 }
 
 .flex2{

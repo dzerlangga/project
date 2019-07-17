@@ -148,23 +148,25 @@ export default class DataTableFixedHeader extends React.Component {
                                             }
                                         ]}
                                         filterable
-                                        style={{ height: "400px" }}
-                                        defaultPageSize={10}
+                                       pageSize={5}
                                         showPageSizeOptions={false}
                                         showPageJump={false}
                                         showPaginationBottom={false}
                                     />
                                     <div style={{ paddingTop: '10px' }}>
-                                        <ButtonGroup size="sm" className="mb-2">
+                                        <ButtonGroup size="lg" className="mb-2">
                                             <Button className="btn-dashed" color="primary"
                                                 onClick={() => this.onRadioBtnClick(1)}
-                                                active={this.state.rSelected === 1}>One</Button>
+                                                active={this.state.rSelected === 1}>First</Button>
                                             <Button className="btn-dashed" color="primary"
                                                 onClick={() => this.onRadioBtnClick(2)}
-                                                active={this.state.rSelected === 2}>Two</Button>
+                                                active={this.state.rSelected === 2}>Next</Button>
                                             <Button className="btn-dashed" color="primary"
                                                 onClick={() => this.onRadioBtnClick(3)}
-                                                active={this.state.rSelected === 3}>Three</Button>
+                                                active={this.state.rSelected === 3}>Previous</Button>
+                                            <Button className="btn-dashed" color="primary"
+                                                onClick={() => this.onRadioBtnClick(4)}
+                                                active={this.state.rSelected === 4}>last</Button>
                                         </ButtonGroup>
                                     </div>
                                 </CardBody>

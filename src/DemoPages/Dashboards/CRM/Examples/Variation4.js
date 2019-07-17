@@ -32,14 +32,14 @@ const Designation = [
 
 
 const relasi = [
-    { name: 'Android', id: [7],id_t:'20' },
-    { name: 'WEB', id: [7,8] , id_t:'21' },
-    { name: 'Facebook', id: [8,2] ,id_t: '22' },
-    { name: 'Visual Designer', id: [7,9], id_t: '23'},
-    { name: 'WhatApp', id: [1] , id_t:'24'},
-    { name: 'Komputer', id: [2], id_t: '25'},
-    { name: 'Mouse', id: [3], id_t: '26'},
-    { name: 'Keyboard', id: [4] , id_t:'27'},
+    { name: 'Android', id: [7], id_t: '20', isChecked: false },
+    { name: 'WEB', id: [7, 8], id_t: '21', isChecked: false  },
+    { name: 'Facebook', id: [8, 2], id_t: '22', isChecked: false },
+    { name: 'Visual Designer', id: [7, 9], id_t: '23', isChecked: false },
+    { name: 'WhatApp', id: [1], id_t: '24', isChecked: false },
+    { name: 'Komputer', id: [2], id_t: '25', isChecked: false },
+    { name: 'Mouse', id: [3], id_t: '26', isChecked: false },
+    { name: 'Keyboard', id: [4], id_t: '27', isChecked: false },
 ]
 
 
@@ -55,6 +55,7 @@ class MinimalDashboard4 extends Component {
             d: '',
             b: '',
             checked: false,
+            designforcheck:false,
             fil: [],
             filtered:[]   
         }  
@@ -98,6 +99,23 @@ class MinimalDashboard4 extends Component {
             }
         }
         this.setState({ design: design, checked: allChecked });
+    }
+
+    handleDesign = (e) => {
+        let filtered = this.state.filtered;
+        let allChecked = this.state.designforcheck;
+        if (e.target.value === "check2") {
+
+            filtered.forEach(item => {
+                item.isChecked = e.target.checked;
+                allChecked = e.target.checked;
+            });
+
+        } else {
+            filtered.find(item => item.name === e.target.name).isChecked = e.target.checked;
+            
+        }
+        this.setState({ filtered: filtered, designforcheck: allChecked });
     }
 
 
@@ -274,8 +292,8 @@ class MinimalDashboard4 extends Component {
                                                                 <div className="widget-content p-0">
                                                                     <div className="widget-content-wrapper">
                                                                         <div className="widget-content-left mr-3">
-                                                                            <CustomInput type="checkbox" id="exampleCustomCheckbox16"
-                                                                                label="Designation For" />
+                                                                                    <CustomInput onClick={this.handleDesign} type="checkbox" id="exampleCustomCheckbox16"
+                                                                                        label="Designation" value='check2' checked={this.state.isChecked} />
                                                                         </div>
 
                                                                         <div className="widget-content-right">
@@ -296,11 +314,10 @@ class MinimalDashboard4 extends Component {
 
                                                             <div className="scroll-area-sm" style={{ maxHeight:'100%',overflow:'auto' }}>
                                                                 <PerfectScrollbar>
-                                                                    
                                                                     {filterDesign.map(el => (
                                                                         <ListGroupItem>
                                                                             <div>
-                                                                                <CustomInput type="checkbox" id={select,el.id_t} label={el.name}  />
+                                                                                <CustomInput key={el.id_t} onChange={(e)=> this.handleDesign(e,el.id)} checked={el.isChecked} name={el.name} type="checkbox" id={select,el.id_t} label={el.name}  />
                                                                             </div>
                                                                         </ListGroupItem>
                                                                     ))}

@@ -12,6 +12,7 @@ import CRMDashboard1 from './Examples/Variation1';
 import CRMDashboard2 from './Examples/Variation2';
 import CRMDashboard3 from './Examples/Variation3';
 import CRMDashboard4 from './Examples/Variation4';
+import CRMDashboard5 from './Examples/Variation5';
 
 
 export default class CRMDashboard extends Component {
@@ -32,14 +33,15 @@ export default class CRMDashboard extends Component {
                         icon="lnr-apartment icon-gradient bg-mean-fruit"
                     />
                     <Tabs
-                        defaultActiveKey="4"
+                        defaultActiveKey="5"
                         renderTabBar={() => <ScrollableInkTabBar/>}
                         renderTabContent={() => <TabContent/>}
                     >
                         <TabPane tab='Data Sekolah' key="1"><CRMDashboard2/></TabPane>
                         <TabPane tab='Add Employee' key="2"><CRMDashboard1 /></TabPane>
                         <TabPane tab='Account Transfer' key="3"><CRMDashboard3 /></TabPane>
-                        <TabPane tab='Claim' key="4"><CRMDashboard4/></TabPane>
+                        <TabPane tab='Claim' key="4"><CRMDashboard4 /></TabPane>
+                        <TabPane tab='Table' key="5"><CRMDashboard5/></TabPane>
                     </Tabs>
                 </ReactCSSTransitionGroup>
             </Fragment>

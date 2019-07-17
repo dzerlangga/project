@@ -39,76 +39,76 @@ const products = [
 ];
 
 const columns = [
-    {
-        dataField: 'id',
-        text: 'Product ID',
-        sort: true
-    },
-    {
-        dataField: 'name',
-        text: 'Product Name',
-        sort: true,
-        filter: textFilter()
-    },
-    {
-        dataField: 'orderid',
-        text: 'Order ID',
-        sort: true,
-        align: 'center',
+        {
+            dataField: 'id',
+            text: 'Product ID',
+            sort: true
+        },
+        {
+            dataField: 'name',
+            text: 'Product Name',
+            sort: true,
+            filter: textFilter()
+        },
+        {
+            dataField: 'orderid',
+            text: 'Order ID',
+            sort: true,
+            align: 'center',
 
-    },
-    {
-        dataField: 'status',
-        isDummyField: false,
-        align: 'center',
-        text: 'Status',
-        formatter: (cellContent, row) => {
-            return (
-                <div className="d-block w-100 text-center">
-                    <span className="badge badge-success"> Completed</span>
-                </div>
-            );
-        }
-    },
-    {
-        dataField: 'actions',
-        isDummyField: true,
-        align: 'center',
-        text: 'Actions',
-        formatter: (cellContent, row) => {
-            return (
-                <div>
+        },
+        {
+            dataField: 'status',
+            isDummyField: false,
+            align: 'center',
+            text: 'Status',
+            formatter: (cellContent, row) => {
+                return (
                     <div className="d-block w-100 text-center">
-                        <UncontrolledButtonDropdown>
-                            <DropdownToggle caret className="btn-icon btn-icon-only btn btn-link" color="link">
-                                <i className="lnr-menu-circle btn-icon-wrapper"/>
-                            </DropdownToggle>
-                            <DropdownMenu right className="rm-pointers dropdown-menu-hover-link">
-                                <DropdownItem header>Header</DropdownItem>
-                                <DropdownItem>
-                                    <i className="dropdown-icon lnr-inbox"> </i>
-                                    <span>Menus</span>
-                                </DropdownItem>
-                                <DropdownItem>
-                                    <i className="dropdown-icon lnr-file-empty"> </i>
-                                    <span>Settings</span>
-                                </DropdownItem>
-                                <DropdownItem>
-                                    <i className="dropdown-icon lnr-book"> </i>
-                                    <span>Actions</span>
-                                </DropdownItem>
-                                <DropdownItem divider/>
-                                <DropdownItem>
-                                    <i className="dropdown-icon lnr-picture"> </i>
-                                    <span>Dividers</span>
-                                </DropdownItem>
-                            </DropdownMenu>
-                        </UncontrolledButtonDropdown>
+                        <span className="badge badge-success"> Completed</span>
                     </div>
-                </div>
-            );
-        }
-    },
+                );
+            }
+        },
+        {
+            dataField: 'actions',
+            isDummyField: true,
+            align: 'center',
+            text: 'Actions',
+            formatter: (cellContent, row) => {
+                return (
+                    <div>
+                        <div className="d-block w-100 text-center">
+                            <UncontrolledButtonDropdown>
+                                <DropdownToggle caret className="btn-icon btn-icon-only btn btn-link" color="link">
+                                    <i className="lnr-menu-circle btn-icon-wrapper"/>
+                                </DropdownToggle>
+                                <DropdownMenu right className="rm-pointers dropdown-menu-hover-link">
+                                    <DropdownItem header>Header</DropdownItem>
+                                    <DropdownItem>
+                                        <i className="dropdown-icon lnr-inbox"> </i>
+                                        <span>Menus</span>
+                                    </DropdownItem>
+                                    <DropdownItem>
+                                        <i className="dropdown-icon lnr-file-empty"> </i>
+                                        <span>Settings</span>
+                                    </DropdownItem>
+                                    <DropdownItem>
+                                        <i className="dropdown-icon lnr-book"> </i>
+                                        <span>Actions</span>
+                                    </DropdownItem>
+                                    <DropdownItem divider/>
+                                    <DropdownItem>
+                                        <i className="dropdown-icon lnr-picture"> </i>
+                                        <span>Dividers</span>
+                                    </DropdownItem>
+                                </DropdownMenu>
+                            </UncontrolledButtonDropdown>
+                        </div>
+                    </div>
+                );
+            }
+        },
 
 ];
 

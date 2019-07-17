@@ -45,7 +45,7 @@ const masDat = [
 
 
 
-class MinimalDashboard2 extends Component {
+class MinimalDashboard3 extends Component {
 
     constructor(props) {
         super(props);
@@ -210,4 +210,4 @@ function mapStateToProps(state) {
 
 
 
-export default connect(mapStateToProps, mapDispatchToProps)(MinimalDashboard2)
+export default connect(mapStateToProps, mapDispatchToProps)(MinimalDashboard3)
